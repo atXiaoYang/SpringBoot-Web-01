@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    <h1 align="center">index.html</h1>
+    <form action="/user" method="get">
+        <input value="REST-GET提交" type="submit" />
+    </form>
+
+    <form action="/user" method="post">
+        <input value="REST-POST提交" type="submit" />
+    </form>
+
+    <form action="/user" method="post">
+        <input name="_m" type="hidden" value="DELETE"/>
+        <input value="REST-DELETE 提交" type="submit"/>
+    </form>
+
+    <form action="/user" method="post">
+        <input name="_method" type="hidden" value="PUT" />
+        <input value="REST-PUT提交"type="submit" />
+    </form>
+
+    <a href="/car/1/owner/zhangsan?age=20&inters=basketball&inters=game">键值对Parameter</a> <br>
+
+    <form action="/save" method="post">
+        测试@RequestBody获取数据 <br>
+        用户名: <input type="text" name="username"> <br>
+        密码: <input type="password" name="password"> <br>
+        邮箱: <input type="text" name="email"> <br>
+        <input type="submit" value="注册">
+    </form>
+
+    <a href="/goto">RequestBody注解测试</a> <br>
+
+    <a href="/cars/sell;low=34;brand=byd,audi,yd">@MatrixVariable（矩阵变量）</a> <br>
+    <a href="/cars/sell;low=34;brand=byd;brand=audi;brand=yd">@MatrixVariable（矩阵变量）</a> <br>
+    <a href="/boss/1;age=20/2;age=10">@MatrixVariable（矩阵变量）/boss/{bossId}/{empId}</a> <br>
+
+</body>
+</html>
