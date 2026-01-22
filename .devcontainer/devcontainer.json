@@ -1,8 +1,7 @@
 {
-  "name": "Spring Boot 2 Dev",
-  "image": "mcr.microsoft.com/devcontainers/java:11-bullseye",
-  "features": {
-    "ghcr.io/devcontainers/features/maven:1": {}
+  "name": "Spring Boot 2 (Fixed JDK)",
+  "build": {
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {
@@ -10,16 +9,20 @@
         "vscjava.vscode-java-pack"
       ],
       "settings": {
-        "java.configuration.updateBuildConfiguration": "interactive",
-        "files.autoSave": "onFocusChange"
+        "java.home": "/usr/lib/jvm/java-11-openjdk-amd64",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-11",
+            "path": "/usr/lib/jvm/java-11-openjdk-amd64"
+          }
+        ]
       }
     }
   },
-  "postCreateCommand": "echo '✅ JDK 11 + Maven ready' && (test -f ./mvnw && chmod +x ./mvnw || echo 'No mvnw found, using system Maven')",
+  "postCreateCommand": "echo '✅ JDK 11 and Maven installed' && (test -f ./mvnw && chmod +x ./mvnw || true)",
   "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {
-      "label": "Spring Boot App",
       "onAutoForward": "openPreview"
     }
   }
