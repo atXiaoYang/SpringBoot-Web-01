@@ -1,43 +1,26 @@
 {
-  "name": "Spring Boot Dev",
-  "image": "mcr.microsoft.com/devcontainers/java:17-bullseye",
-
-  // 自动安装 Maven 和 Git（如果你用 Gradle，可换成 gradle feature）
+  "name": "Spring Boot 2 Dev",
+  "image": "mcr.microsoft.com/devcontainers/java:11-bullseye",
   "features": {
-    "ghcr.io/devcontainers/features/maven:1": {},
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/maven:1": {}
   },
-
-  // 自动安装 VS Code 插件
   "customizations": {
     "vscode": {
       "extensions": [
-        "vscjava.vscode-java-pack",     // 包含 Spring Boot Tools
-        "pivotal.vscode-spring-boot",   // 官方 Spring Boot 插件（可选但推荐）
-        "ms-vscode.vscode-typescript-next"
+        "vscjava.vscode-java-pack"
       ],
       "settings": {
         "java.configuration.updateBuildConfiguration": "interactive",
-        "files.autoSave": "onFocusChange",
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "files.autoSave": "onFocusChange"
       }
     }
   },
-
-  // 启动后自动赋予脚本执行权限（重要！）
-  "postCreateCommand": "chmod +x ./mvnw && echo '✅ Maven Wrapper ready'",
-
-  // 自动转发 Spring Boot 默认端口
-  "forwardPorts": [8080, 8081, 5005],
-
-  // 端口提示优化
+  "postCreateCommand": "echo '✅ JDK 11 + Maven ready' && (test -f ./mvnw && chmod +x ./mvnw || echo 'No mvnw found, using system Maven')",
+  "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {
       "label": "Spring Boot App",
       "onAutoForward": "openPreview"
-    },
-    "5005": {
-      "label": "Remote Debug"
     }
   }
 }
