@@ -1,5 +1,5 @@
 {
-  "name": "Spring Boot 2 (Fixed JDK)",
+  "name": "Spring Boot 2 with MySQL",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -19,11 +19,28 @@
       }
     }
   },
-  "postCreateCommand": "echo '✅ JDK 11 and Maven installed' && (test -f ./mvnw && chmod +x ./mvnw || true)",
-  "forwardPorts": [8080],
+  // 🔹 新增：MySQL 服务（独立容器）
+  "services": {
+    "mysql": {
+      "image": "mysql:8.0",
+      "env": {
+        "MYSQL_ROOT_PASSWORD": "root",
+        "MYSQL_DATABASE": "mydb"
+      },
+      "ports": [3306],
+      "options": ">- --health-cmd=\"mysqladmin ping -h localhost\" --health-interval=10s --health-timeout=5s --health-retries=3"
+    }
+  },
+  // 🔹 转发 3306 端口（用于 Adminer 或远程连接）
+  "forwardPorts": [8080, 3306],
   "portsAttributes": {
     "8080": {
       "onAutoForward": "openPreview"
+    },
+    "3306": {
+      "onAutoForward": "silent"
     }
-  }
+  },
+  // 🔹 可选：创建后提示
+  "postCreateCommand": "echo '✅ JDK 11, Maven, and MySQL ready! DB: mysql:3306'"
 }
