@@ -42,5 +42,5 @@
     }
   },
   // 🔹 可选：创建后提示
-  "postCreateCommand": "echo '✅ JDK 11, Maven, and MySQL ready! DB: mysql:3306'"
+  "postCreateCommand": "chmod +x ./wait-for-mysql.sh && echo '✅ MySQL ready!'",
 }
